@@ -18,8 +18,14 @@ export function QuestionCard({
   question,
   status = "not_started",
 }: QuestionCardProps) {
-  const themeName = question.theme?.name;
-  const subjectName = question.theme?.subject?.name;
+  const themeData = Array.isArray(question.theme)
+    ? question.theme[0]
+    : question.theme;
+  const themeName = themeData?.name;
+  const subjectData = Array.isArray(themeData?.subject)
+    ? themeData.subject[0]
+    : themeData?.subject;
+  const subjectName = subjectData?.name;
   const statusCfg = STATUS_CONFIG[status];
 
   return (

@@ -21,8 +21,9 @@ type SearchParams = {
 export default async function QuestionsPage({
   searchParams,
 }: {
-  searchParams?: SearchParams;
+  searchParams?: Promise<SearchParams>;
 }) {
+  const resolvedParams = await searchParams;
   const supabase = await createClient();
 
   const {
@@ -33,12 +34,12 @@ export default async function QuestionsPage({
     redirect("/login");
   }
 
-  const subjectId = str(searchParams?.subject);
-  const bancaParam = str(searchParams?.banca);
-  const themeParam = str(searchParams?.theme);
-  const searchParam = str(searchParams?.search);
+  const subjectId = str(resolvedParams?.subject);
+  const bancaParam = str(resolvedParams?.banca);
+  const themeParam = str(resolvedParams?.theme);
+  const searchParam = str(resolvedParams?.search);
   const currentPage = Math.max(
-    Number.parseInt(str(searchParams?.page) || "1", 10) || 1,
+    Number.parseInt(str(resolvedParams?.page) || "1", 10) || 1,
     1
   );
   const offset = (currentPage - 1) * PAGE_SIZE;
@@ -161,13 +162,13 @@ export default async function QuestionsPage({
                 label="Anterior"
                 disabled={!hasPreviousPage}
                 page={currentPage - 1}
-                params={searchParams}
+                params={resolvedParams}
               />
               <PaginationLink
                 label="Próxima"
                 disabled={!hasNextPage}
                 page={currentPage + 1}
-                params={searchParams}
+                params={resolvedParams}
               />
             </div>
           </footer>
