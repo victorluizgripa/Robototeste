@@ -120,6 +120,32 @@ Todos em `src/components/ui/`. Padrão: forwardRef + className merge.
 
 ---
 
+## 6.1. Logo (RobotoLogo)
+
+Componente: `src/components/roboto-logo.tsx`. Ícone de robô em container roxo (accent) + texto opcional "Roboto". Outline do HTML de referência: retângulo, olhos em traço, antena, braços.
+
+### Props
+
+| Prop        | Tipo                 | Default | Descrição                   |
+|-------------|----------------------|---------|-----------------------------|
+| `size`      | `24` \| `32` \| `48` | `32`    | Tamanho do container (px)   |
+| `showText`  | `boolean`            | `true`  | Exibir texto "Roboto" ao lado |
+| `className` | `string`             | `""`    | Classes do wrapper          |
+
+### Uso
+
+```tsx
+import { RobotoLogo } from "@/components/roboto-logo";
+
+<RobotoLogo size={32} showText />
+<RobotoLogo size={48} showText />
+<RobotoLogo size={24} showText={false} />
+```
+
+Onde está em uso: `src/components/nav-header.tsx`, `src/app/login/page.tsx`.
+
+---
+
 ## 7. Regras (Do / Don't)
 
 ### Do

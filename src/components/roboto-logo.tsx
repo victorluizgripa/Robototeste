@@ -8,8 +8,13 @@ type RobotoLogoProps = {
 };
 
 const SIZES = { 24: "h-6 w-6", 32: "h-8 w-8", 48: "h-12 w-12" } as const;
-const RADII = { 24: "rounded-lg", 32: "rounded-xl", 48: "rounded-2xl" } as const;
+const RADII = {
+  24: "rounded-[0.75rem]",
+  32: "rounded-[1rem]",
+  48: "rounded-[1.25rem]",
+} as const;
 const TEXT_SIZES = { 24: "text-base", 32: "text-lg", 48: "text-2xl" } as const;
+const SVG_SIZES = { 24: "h-4 w-4", 32: "h-5 w-5", 48: "h-10 w-10" } as const;
 
 export function RobotoLogo({
   size = 32,
@@ -19,6 +24,7 @@ export function RobotoLogo({
   const iconSize = SIZES[size];
   const textSize = TEXT_SIZES[size];
   const radius = RADII[size];
+  const svgSize = SVG_SIZES[size];
 
   return (
     <div className={`flex items-center gap-2.5 ${className}`}>
@@ -29,29 +35,23 @@ export function RobotoLogo({
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          fill="white"
-          className={size === 24 ? "h-4 w-4" : size === 32 ? "h-5 w-5" : "h-6 w-6"}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={2}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className={`text-white ${svgSize}`}
           aria-hidden
         >
-          {/* Antena curvada */}
+          <rect x="4" y="6" width="16" height="12" rx="3" ry="3" />
           <path
-            stroke="white"
-            strokeWidth="1.1"
-            fill="none"
+            d="M9 11h.01M15 11h.01"
+            strokeWidth={3}
             strokeLinecap="round"
-            d="M12 4.2V2.2l-1.2 1"
+            strokeLinejoin="round"
           />
-          <circle cx="10.8" cy="2.2" r="0.65" fill="white" />
-          {/* Cabeça (retângulo arredondado) */}
-          <rect x="5" y="3.8" width="14" height="5.8" rx="1.4" />
-          {/* Olhos (dois retângulos horizontais) */}
-          <rect x="7.6" y="5.3" width="2" height="1.1" rx="0.25" fill="#6d28d9" />
-          <rect x="14.4" y="5.3" width="2" height="1.1" rx="0.25" fill="#6d28d9" />
-          {/* Corpo */}
-          <rect x="6" y="10" width="12" height="7.5" rx="1.2" />
-          {/* Braços */}
-          <rect x="3.2" y="12.6" width="3.2" height="1.2" rx="0.35" />
-          <rect x="17.6" y="12.6" width="3.2" height="1.2" rx="0.35" />
+          <path d="M12 3v3" />
+          <path d="M2 12h2M20 12h2" />
         </svg>
       </div>
       {showText && (
