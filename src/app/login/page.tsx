@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { RobotoLogo } from "@/components/roboto-logo";
 import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/alert";
 
@@ -20,7 +21,7 @@ export default function LoginPage() {
       } = await supabase.auth.getUser();
 
       if (user) {
-        router.replace("/dashboard");
+        router.replace("/");
       } else {
         setCheckingSession(false);
       }
@@ -63,11 +64,8 @@ export default function LoginPage() {
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center bg-bg px-4">
-      <div className="mb-8 flex items-center gap-3">
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-600">
-          <BriefcaseIcon />
-        </div>
-        <span className="text-2xl font-bold text-txt">Roboto</span>
+      <div className="mb-8">
+        <RobotoLogo size={48} showText />
       </div>
 
       <div className="w-full max-w-sm rounded-2xl bg-surface shadow-card border border-border p-8">
@@ -100,25 +98,6 @@ export default function LoginPage() {
         </p>
       </div>
     </main>
-  );
-}
-
-function BriefcaseIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="white"
-      className="h-6 w-6"
-      aria-hidden="true"
-    >
-      <path
-        fillRule="evenodd"
-        d="M7.5 5.25a3 3 0 0 1 3-3h3a3 3 0 0 1 3 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0 1 12 15.75a24.726 24.726 0 0 1-7.814-1.259C2.984 14.091 2.25 12.95 2.25 11.739V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 0 1 7.5 5.455V5.25ZM10.5 4.5a1.5 1.5 0 0 0-1.5 1.5v.041a48.936 48.936 0 0 1 6 0V6a1.5 1.5 0 0 0-1.5-1.5h-3Zm3.75 9.75a.75.75 0 0 0 0-1.5h-4.5a.75.75 0 0 0 0 1.5h4.5Z"
-        clipRule="evenodd"
-      />
-      <path d="M3 18.4v-2.796a4.3 4.3 0 0 0 .713.31A26.226 26.226 0 0 0 12 17.25c2.93 0 5.748-.483 8.287-1.336.252-.084.49-.189.713-.31V18.4c0 1.452-1.047 2.728-2.523 2.923-2.12.28-4.312.427-6.477.427-2.165 0-4.357-.147-6.477-.427C4.047 21.128 3 19.852 3 18.4Z" />
-    </svg>
   );
 }
 

@@ -89,7 +89,7 @@ export default async function QuestionsPage({
       <div className="max-w-6xl mx-auto space-y-6">
         <Breadcrumb
           segments={[
-            { label: "Home", href: "/dashboard" },
+            { label: "Home", href: "/" },
             { label: "Banco de Questões" },
           ]}
         />

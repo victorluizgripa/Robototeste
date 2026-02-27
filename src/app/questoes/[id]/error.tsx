@@ -16,7 +16,7 @@ export default function QuestionDetailError({
       <div className="max-w-3xl mx-auto space-y-6">
         <Breadcrumb
           segments={[
-            { label: "Home", href: "/dashboard" },
+            { label: "Home", href: "/" },
             { label: "Banco de Questões", href: "/questoes" },
             { label: "Erro" },
           ]}
