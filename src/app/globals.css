@@ -1,0 +1,19 @@
+@import "katex/dist/katex.min.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-bg text-txt;
+  }
+
+  ::selection {
+    @apply bg-accent-200 text-accent-900;
+  }
+
+  *:focus-visible {
+    @apply outline-none ring-2 ring-accent-500/40 ring-offset-2;
+  }
+}
