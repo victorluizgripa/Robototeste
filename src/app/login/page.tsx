@@ -79,12 +79,12 @@ export default function LoginPage() {
         <RobotoLogo size={48} showText />
       </div>
 
-      <div className="w-full max-w-sm rounded-2xl bg-surface shadow-card border border-border p-8">
-        <h1 className="text-lg font-bold text-txt text-center">
+      <div className="w-full max-w-sm rounded-2xl bg-surface shadow-card border border-border p-6 md:p-8">
+        <h1 className="text-2xl font-bold text-txt text-center">
           Bem-vindo de volta
         </h1>
-        <p className="mt-1.5 text-sm text-txt-2 text-center">
-          Entre para continuar seu plano de estudo.
+        <p className="mt-2 text-sm text-txt-2 text-center">
+          Entre com um clique e continue seu plano de estudo.
         </p>
 
         {errorMessage && (
@@ -96,13 +96,17 @@ export default function LoginPage() {
         <Button
           onClick={handleLogin}
           disabled={loading}
-          variant="secondary"
+          variant="primary"
           size="lg"
           className="mt-6 w-full"
         >
           <GoogleIcon />
           {loading ? "Redirecionando..." : "Entrar com Google"}
         </Button>
+
+        <p className="mt-4 text-center text-[11px] text-txt-3">
+          Login seguro com Google
+        </p>
 
         <p className="mt-6 text-center text-[11px] text-txt-3">
           Ao entrar, você concorda com os termos de uso do Roboto.
