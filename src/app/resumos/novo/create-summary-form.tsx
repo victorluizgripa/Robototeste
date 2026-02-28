@@ -95,7 +95,7 @@ export function CreateSummaryForm({ subjects, themes, onSuccess }: Props) {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <fieldset disabled={isPending} className="space-y-5">
-          <div className="space-y-1.5">
+          <div className="min-w-0 space-y-1.5">
             <span className="block text-xs font-medium text-txt-2">
               Tema *
             </span>

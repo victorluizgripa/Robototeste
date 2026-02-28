@@ -38,7 +38,7 @@ export function CreateSummaryModal({ subjects, themes, trigger }: Props) {
       )}
 
       <Dialog open={open} onClose={() => setOpen(false)} title="Criar Resumo">
-        <div className="p-5 pt-4">
+        <div className="min-w-0 overflow-hidden p-5 pt-4">
           <p className="mb-5 text-sm text-txt-2">
             Escolha um tema e o nível. A gente monta um resumo enxuto pra você
             revisar e acertar mais.

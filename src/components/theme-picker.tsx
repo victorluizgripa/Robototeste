@@ -132,7 +132,7 @@ export function ThemePicker({
     isSearching || expanded.has(subjectId);
 
   return (
-    <div className={disabled ? "pointer-events-none opacity-60" : ""}>
+    <div className={`min-w-0 w-full ${disabled ? "pointer-events-none opacity-60" : ""}`}>
       <Input
         icon={<SearchIcon />}
         placeholder="Buscar tema ou matéria..."
@@ -154,7 +154,7 @@ export function ThemePicker({
               const open = isExpanded(subject.id);
 
               return (
-                <li key={subject.id}>
+                <li key={subject.id} className="min-w-0">
                   <button
                     type="button"
                     onClick={() => toggleSubject(subject.id)}
@@ -174,11 +174,11 @@ export function ThemePicker({
                   </button>
 
                   {open && (
-                    <ul className="pb-1">
+                    <ul className="min-w-0 overflow-hidden pb-1">
                       {subjectThemes.map((theme) => {
                         const selected = value === theme.id;
                         return (
-                          <li key={theme.id}>
+                          <li key={theme.id} className="min-w-0">
                             <button
                               type="button"
                               role="option"
