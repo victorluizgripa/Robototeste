@@ -41,8 +41,8 @@ function AnaliseEstudoIcon() {
 
 function MeusResumosIcon() {
   return (
-    <div className={MUTED_BG}>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className={MUTED_IC} aria-hidden="true">
+    <div className={ACTIVE_BG}>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className={ACTIVE_IC} aria-hidden="true">
         <path fillRule="evenodd" d="M15.988 3.012A2.25 2.25 0 0 1 18 5.25v6.5A2.25 2.25 0 0 1 15.75 14H13.5v-3.379a3 3 0 0 0-.879-2.121l-3.12-3.121a3 3 0 0 0-1.402-.791 2.252 2.252 0 0 1 1.913-1.576A48.07 48.07 0 0 1 12 3c1.268 0 2.53.038 3.988.012ZM6.5 7.5a1.5 1.5 0 0 0-1.5 1.5v6.5A1.5 1.5 0 0 0 6.5 17h7A1.5 1.5 0 0 0 15 15.5V10.621a1.5 1.5 0 0 0-.44-1.06l-3.12-3.122A1.5 1.5 0 0 0 10.378 6H6.5Z" clipRule="evenodd" />
       </svg>
     </div>
@@ -158,9 +158,9 @@ const NAV_CARDS: NavCard[] = [
   {
     title: "Meus Resumos",
     description: "Consulte todos os resumos gerados nas suas sessões de estudo.",
-    href: "#",
+    href: "/resumos",
     icon: <MeusResumosIcon />,
-    enabled: false,
+    enabled: true,
   },
   {
     title: "Banco de Questões",

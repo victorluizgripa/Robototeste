@@ -44,12 +44,8 @@ export function RobotoLogo({
           aria-hidden
         >
           <rect x="4" y="6" width="16" height="12" rx="3" ry="3" />
-          <path
-            d="M9 11h.01M15 11h.01"
-            strokeWidth={3}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+          <circle cx="9" cy="11" r="0.9" fill="white" stroke="none" />
+          <circle cx="15" cy="11" r="0.9" fill="white" stroke="none" />
           <path d="M12 3v3" />
           <path d="M2 12h2M20 12h2" />
         </svg>
