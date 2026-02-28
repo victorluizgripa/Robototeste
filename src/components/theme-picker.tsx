@@ -158,7 +158,7 @@ export function ThemePicker({
                   <button
                     type="button"
                     onClick={() => toggleSubject(subject.id)}
-                    className="flex w-full min-w-0 items-center justify-between gap-2 px-4 py-3 text-left transition-colors hover:bg-surface-2"
+                    className="flex w-full min-w-0 overflow-hidden items-center justify-between gap-2 px-4 py-3 text-left transition-colors hover:bg-surface-2"
                     aria-expanded={open}
                   >
                     <div className="flex min-w-0 flex-1 items-center gap-2">
@@ -184,16 +184,20 @@ export function ThemePicker({
                               role="option"
                               aria-selected={selected}
                               onClick={() => onChange(theme.id)}
-                              className={`flex w-full min-w-0 items-center justify-between gap-2 px-4 py-2.5 pl-10 text-left text-sm transition-colors ${
+                              className={`relative block w-full overflow-hidden py-2.5 pl-10 pr-8 text-left text-sm transition-colors ${
                                 selected
                                   ? "bg-accent-50 text-accent-700 font-medium"
                                   : "text-txt-2 hover:bg-surface-2"
                               }`}
                             >
-                              <span className="min-w-0 flex-1 truncate" title={theme.name}>
+                              <span className="block truncate" title={theme.name}>
                                 {theme.name}
                               </span>
-                              {selected && <span className="shrink-0"><CheckIcon /></span>}
+                              {selected && (
+                                <span className="absolute right-3 top-1/2 -translate-y-1/2">
+                                  <CheckIcon />
+                                </span>
+                              )}
                             </button>
                           </li>
                         );
