@@ -7,12 +7,23 @@ import { RobotoLogo } from "@/components/roboto-logo";
 import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/alert";
 
+function sanitizeNextPath(nextPath: string | null): string {
+  if (!nextPath || !nextPath.startsWith("/")) return "/";
+  return nextPath;
+}
+
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [checkingSession, setCheckingSession] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [nextPath, setNextPath] = useState("/");
   const router = useRouter();
   const supabase = useMemo(() => createClient(), []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setNextPath(sanitizeNextPath(params.get("next")));
+  }, []);
 
   useEffect(() => {
     async function checkSession() {
@@ -21,14 +32,14 @@ export default function LoginPage() {
       } = await supabase.auth.getUser();
 
       if (user) {
-        router.replace("/");
+        router.replace(nextPath);
       } else {
         setCheckingSession(false);
       }
     }
 
     void checkSession();
-  }, [router, supabase]);
+  }, [nextPath, router, supabase]);
 
   async function handleLogin() {
     setErrorMessage(null);
@@ -37,7 +48,7 @@ export default function LoginPage() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
+          redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextPath)}`,
         },
       });
       if (error) {

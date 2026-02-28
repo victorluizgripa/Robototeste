@@ -6,8 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/alert";
 import { Spinner } from "@/components/ui/spinner";
 import { ThemePicker } from "@/components/theme-picker";
-import { createSummary } from "./actions";
-import type { SummaryLevel } from "@/domain/summaries/types";
+import type { SummaryLevel, CreateSummaryResult } from "@/domain/summaries/types";
 
 type Subject = { id: string; name: string };
 type Theme = { id: string; name: string; subject_id: string };
@@ -44,6 +43,36 @@ const ERROR_MESSAGES: Record<string, string> = {
     "Não foi possível gerar o resumo agora. Tente novamente em alguns instantes.",
 };
 
+async function createSummaryViaApi(
+  themeId: string,
+  level: SummaryLevel,
+): Promise<CreateSummaryResult> {
+  try {
+    const response = await fetch("/api/summaries/create", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ themeId, level }),
+    });
+
+    const json = (await response.json().catch(() => null)) as
+      | CreateSummaryResult
+      | null;
+
+    if (json && typeof json === "object" && "success" in json) {
+      return json;
+    }
+
+    if (response.status === 401) {
+      return { success: false, error: "NOT_AUTHENTICATED" };
+    }
+
+    return { success: false, error: "GENERATION_FAILED" };
+  } catch {
+    return { success: false, error: "GENERATION_FAILED" };
+  }
+}
+
 export function CreateSummaryForm({ subjects, themes, onSuccess }: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -64,7 +93,7 @@ export function CreateSummaryForm({ subjects, themes, onSuccess }: Props) {
     setError("");
 
     startTransition(async () => {
-      const result = await createSummary(themeId, level);
+      const result = await createSummaryViaApi(themeId, level);
       if (result.success) {
         if (onSuccess) {
           onSuccess(result.userSummaryId);
