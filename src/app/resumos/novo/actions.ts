@@ -7,16 +7,36 @@ import type { SummaryLevel, CreateSummaryResult } from "@/domain/summaries/types
 
 const VALID_LEVELS: SummaryLevel[] = ["medio", "tecnico", "superior"];
 
+function isAuthError(err: unknown): boolean {
+  const msg =
+    err instanceof Error ? err.message.toLowerCase() : String(err).toLowerCase();
+  return (
+    msg.includes("401") ||
+    msg.includes("unauthorized") ||
+    msg.includes("jwt") ||
+    msg.includes("session") ||
+    msg.includes("invalid login") ||
+    msg.includes("refresh_token")
+  );
+}
+
 export async function createSummary(
   themeId: string,
   level: string,
 ): Promise<CreateSummaryResult> {
   const startMs = Date.now();
-
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  let user: { id: string } | null = null;
+
+  try {
+    const { data } = await supabase.auth.getUser();
+    user = data.user;
+  } catch (err) {
+    if (isAuthError(err)) {
+      return { success: false, error: "NOT_AUTHENTICATED" };
+    }
+    throw err;
+  }
 
   if (!user) {
     return { success: false, error: "NOT_AUTHENTICATED" };
@@ -96,6 +116,9 @@ export async function createSummary(
     return { success: true, userSummaryId };
   } catch (err) {
     const message = err instanceof Error ? err.message : "unknown";
+    if (isAuthError(err)) {
+      return { success: false, error: "NOT_AUTHENTICATED" };
+    }
     console.error(
       JSON.stringify({
         event: "summary_creation_error",
