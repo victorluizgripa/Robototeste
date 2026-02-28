@@ -4,6 +4,7 @@ type BadgeProps = {
   variant?: BadgeVariant;
   children: React.ReactNode;
   className?: string;
+  title?: string;
 };
 
 const VARIANT_CLASSES: Record<BadgeVariant, string> = {
@@ -17,10 +18,12 @@ export function Badge({
   variant = "default",
   children,
   className = "",
+  title,
 }: BadgeProps) {
   return (
     <span
       className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-medium ${VARIANT_CLASSES[variant]} ${className}`}
+      title={title}
     >
       {children}
     </span>
