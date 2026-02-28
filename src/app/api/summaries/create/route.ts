@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createSummaryRepository } from "@/infra/summaries/supabase-summary-repository";
 import { openaiSummaryGenerator } from "@/infra/summaries/openai-summary-generator";
+import { normalizeMathDelimiters } from "@/lib/math-delimiters";
 import type { SummaryLevel, CreateSummaryResult } from "@/domain/summaries/types";
 
 const VALID_LEVELS: SummaryLevel[] = ["medio", "tecnico", "superior"];
@@ -126,11 +127,12 @@ export async function POST(request: Request) {
         }),
       );
 
-      const { contentMd } = await openaiSummaryGenerator.generate(
+      const { contentMd: rawMd } = await openaiSummaryGenerator.generate(
         themeName,
         subjectName,
         safeLevel,
       );
+      const contentMd = normalizeMathDelimiters(rawMd);
 
       general = await repo.createGeneralSummary(themeId, safeLevel, contentMd);
 
